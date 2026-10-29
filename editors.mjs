@@ -13,6 +13,7 @@ export const readText = file => { try { return fs.readFileSync(file, 'utf8') } c
 export const isDir = d => { try { return fs.statSync(d).isDirectory() } catch { return false } }
 
 export const parseJsonc = text => {
+  try { return JSON.parse(text) } catch {} // plain JSON (most themes and grammars) skips the slow comment stripper
   let out = ''
   for (let i = 0, str = false; i < text.length; i++) {
     const c = text[i]

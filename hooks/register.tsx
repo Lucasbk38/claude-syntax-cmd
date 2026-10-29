@@ -85,12 +85,7 @@ export const register: Register = (on, userOptions) => {
     const code = (input.code ?? '').trimEnd()
     void highlight($, { code, language: input.language ?? '' })
 
-    return {
-      result: {
-        content: [{ type: 'text', text: `Showed ${code.split('\n').length} lines of ${input.language} to the user.` }],
-        isError: false,
-      },
-    }
+    return { result: `Showed ${code.split('\n').length} lines of ${input.language} to the user.` }
   }).catch(($, e, next) => ({ deny: 'syntax-cmd: could not show the code.' }))
 
   // start tokenizing as a Bash call is made, so its row is usually ready when first drawn
