@@ -1,0 +1,13 @@
+{
+  "name": "claude-syntax-cmd",
+  "owner": {
+    "name": "Lucasbk38"
+  },
+  "plugins": [
+    {
+      "name": "syntax-cmd",
+      "source": "./",
+      "description": "Syntax-highlights Bash commands, and code inside node -e / python -c / heredocs, with your editor's theme"
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+[
+ {
+  "name": "shellscript",
+  "scopeName": "source.shell",
+  "aliases": [
+   "bash",
+   "sh",
+   "shell",
+   "zsh"
+  ],
+  "displayName": "Shell"
+ },
+ {
+  "name": "python",
+  "scopeName": "source.python",
+  "aliases": [
+   "py"
+  ],
+  "displayName": "Python"
+ },
+ {
+  "name": "javascript",
+  "scopeName": "source.js",
+  "aliases": [
+   "js",
+   "cjs",
+   "mjs"
+  ],
+  "displayName": "JavaScript"
+ },
+ {
+  "name": "typescript",
+  "scopeName": "source.ts",
+  "aliases": [
+   "ts",
+   "cts",
+   "mts"
+  ],
+  "displayName": "TypeScript"
+ },
+ {
+  "name": "tsx",
+  "scopeName": "source.tsx",
+  "aliases": [],
+  "displayName": "TSX"
+ },
+ {
+  "name": "jsx",
+  "scopeName": "source.js.jsx",
+  "aliases": [],
+  "displayName": "JSX"
+ },
+ {
+  "name": "json",
+  "scopeName": "source.json",
+  "aliases": [],
+  "displayName": "JSON"
+ },
+ {
+  "name": "jsonc",
+  "scopeName": "source.json.comments",
+  "aliases": [],
+  "displayName": "JSON with Comments"
+ },
+ {
+  "name": "ruby",
+  "scopeName": "source.ruby",
+  "aliases": [
+   "rb"
+  ],
+  "displayName": "Ruby"
+ },
+ {
+  "name": "yaml",
+  "scopeName": "source.yaml",
+  "aliases": [
+   "yml"
+  ],
+  "displayName": "YAML"
+ },
+ {
+  "name": "css",
+  "scopeName": "source.css",
+  "aliases": [],
+  "displayName": "CSS"
+ },
+ {
+  "name": "scss",
+  "scopeName": "source.css.scss",
+  "aliases": [],
+  "displayName": "SCSS"
+ },
+ {
+  "name": "html",
+  "scopeName": "text.html.basic",
+  "aliases": [],
+  "displayName": "HTML"
+ },
+ {
+  "name": "markdown",
+  "scopeName": "text.html.markdown",
+  "aliases": [
+   "md"
+  ],
+  "displayName": "Markdown"
+ },
+ {
+  "name": "sql",
+  "scopeName": "source.sql",
+  "aliases": [],
+  "displayName": "SQL"
+ },
+ {
+  "name": "go",
+  "scopeName": "source.go",
+  "aliases": [],
+  "displayName": "Go"
+ },
+ {
+  "name": "rust",
+  "scopeName": "source.rust",
+  "aliases": [
+   "rs"
+  ],
+  "displayName": "Rust"
+ },
+ {
+  "name": "c",
+  "scopeName": "source.c",
+  "aliases": [],
+  "displayName": "C"
+ },
+ {
+  "name": "cpp",
+  "scopeName": "source.cpp",
+  "aliases": [
+   "c++"
+  ],
+  "displayName": "C++"
+ },
+ {
+  "name": "java",
+  "scopeName": "source.java",
+  "aliases": [],
+  "displayName": "Java"
+ },
+ {
+  "name": "php",
+  "scopeName": "source.php",
+  "aliases": [],
+  "displayName": "PHP"
+ },
+ {
+  "name": "lua",
+  "scopeName": "source.lua",
+  "aliases": [],
+  "displayName": "Lua"
+ },
+ {
+  "name": "toml",
+  "scopeName": "source.toml",
+  "aliases": [],
+  "displayName": "TOML"
+ },
+ {
+  "name": "xml",
+  "scopeName": "text.xml",
+  "aliases": [],
+  "displayName": "XML"
+ },
+ {
+  "name": "diff",
+  "scopeName": "source.diff",
+  "aliases": [],
+  "displayName": "Diff"
+ },
+ {
+  "name": "docker",
+  "scopeName": "source.dockerfile",
+  "aliases": [
+   "dockerfile"
+  ],
+  "displayName": "Dockerfile"
+ },
+ {
+  "name": "make",
+  "scopeName": "source.makefile",
+  "aliases": [
+   "makefile"
+  ],
+  "displayName": "Makefile"
+ },
+ {
+  "name": "perl",
+  "scopeName": "source.perl",
+  "aliases": [],
+  "displayName": "Perl"
+ },
+ {
+  "name": "powershell",
+  "scopeName": "source.powershell",
+  "aliases": [
+   "ps",
+   "ps1",
+   "pwsh"
+  ],
+  "displayName": "PowerShell"
+ },
+ {
+  "name": "swift",
+  "scopeName": "source.swift",
+  "aliases": [],
+  "displayName": "Swift"
+ },
+ {
+  "name": "kotlin",
+  "scopeName": "source.kotlin",
+  "aliases": [
+   "kt",
+   "kts"
+  ],
+  "displayName": "Kotlin"
+ },
+ {
+  "name": "csharp",
+  "scopeName": "source.cs",
+  "aliases": [
+   "c#",
+   "cs"
+  ],
+  "displayName": "C#"
+ },
+ {
+  "name": "vue",
+  "scopeName": "text.html.vue",
+  "aliases": [],
+  "displayName": "Vue"
+ },
+ {
+  "name": "regexp",
+  "scopeName": "source.regexp.python",
+  "aliases": [
+   "regex"
+  ],
+  "displayName": "RegExp"
+ },
+ {
+  "name": "ini",
+  "scopeName": "source.ini",
+  "aliases": [
+   "properties"
+  ],
+  "displayName": "INI"
+ },
+ {
+  "name": "graphql",
+  "scopeName": "source.graphql",
+  "aliases": [
+   "gql"
+  ],
+  "displayName": "GraphQL"
+ },
+ {
+  "name": "log",
+  "scopeName": "text.log",
+  "aliases": [],
+  "displayName": "Log file"
+ },
+ {
+  "name": "bat",
+  "scopeName": "source.batchfile",
+  "aliases": [
+   "batch",
+   "cmd"
+  ],
+  "displayName": "Batch File"
+ },
+ {
+  "name": "fish",
+  "scopeName": "source.fish",
+  "aliases": [],
+  "displayName": "Fish"
+ }
+]

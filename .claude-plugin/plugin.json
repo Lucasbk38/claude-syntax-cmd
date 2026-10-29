@@ -1,0 +1,57 @@
+{
+  "name": "syntax-cmd",
+  "version": "0.2.0",
+  "description": "Syntax-highlights Claude's Bash commands (and code inside node -e, python -c, heredocs) with your editor's theme and TextMate grammars, and lets Claude show highlighted code on request",
+  "userConfig": {
+    "editor": {
+      "type": "string",
+      "title": "Editor",
+      "description": "Whose colour theme and grammars to use. auto = the IDE Claude Code is connected to, else $VISUAL/$EDITOR, else the first editor found on this machine.",
+      "default": "auto",
+      "options": [
+        "auto",
+        "vscode",
+        "vscode-insiders",
+        "cursor",
+        "windsurf",
+        "vscodium",
+        "zed",
+        "sublime",
+        "jetbrains",
+        "neovim",
+        "helix",
+        "vim"
+      ]
+    },
+    "theme": {
+      "type": "string",
+      "title": "Theme override",
+      "description": "Name of a colour theme (for example 'One Dark Pro' or 'tokyo-night'). Empty = the editor's current theme.",
+      "default": ""
+    },
+    "strength": {
+      "type": "number",
+      "title": "Command colour strength",
+      "description": "How much of the theme's colour shows in Bash commands: 0 = all grey, 1 = full colour. Default 0.55 keeps them dim.",
+      "default": 0.55
+    },
+    "codeStrength": {
+      "type": "number",
+      "title": "Shown-code colour strength",
+      "description": "Same, for code Claude shows you with the show_code tool.",
+      "default": 1
+    },
+    "collapsedLines": {
+      "type": "number",
+      "title": "Collapsed command lines",
+      "description": "How many lines of a long command to show before 'ctrl+o to expand'.",
+      "default": 3
+    }
+  },
+  "author": {
+    "name": "Lucasbk38"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/Lucasbk38/claude-syntax-cmd",
+  "homepage": "https://github.com/Lucasbk38/claude-syntax-cmd"
+}
