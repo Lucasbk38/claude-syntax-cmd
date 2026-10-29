@@ -186,31 +186,31 @@ const lex = src => {
 const WRAPPERS = new Set(['env', 'sudo', 'time', 'exec', 'command', 'nohup', 'uv', 'run', 'poetry', 'pipx', 'npx', 'bunx', 'pnpm', 'dlx', 'exec', 'xcrun', 'caffeinate'])
 const ASSIGN = /^[A-Za-z_][A-Za-z0-9_]*=/
 
-// runner: matches the program name; evalFlags: flags whose NEXT word is code; skip: flags that swallow one argument
-const RUNNERS = [
-  { re: /^(python|python\d+(\.\d+)*|py|pypy3?)$/, scope: 'source.python', eval: w => w === '-c' || /^-[A-Za-z]*c$/.test(w), skip: new Set(['-W', '-X', '-Q', '-m']) , stop: new Set(['-m']) },
-  { re: /^(node|nodejs)$/, scope: 'source.js', eval: w => ['-e', '-p', '-pe', '-ep', '--eval', '--print'].includes(w), skip: new Set(['-r', '--require', '--import', '--loader', '--input-type', '--env-file', '--experimental-loader']) },
-  { re: /^bun$/, scope: 'source.js', eval: w => ['-e', '--eval', '-p', '--print'].includes(w), skip: new Set(['--preload', '-r', '--cwd', '--env-file']), words: new Set(['run']) },
-  { re: /^deno$/, scope: 'source.ts', after: 'eval', eval: () => false, skip: new Set() },
-  { re: /^(tsx|ts-node)$/, scope: 'source.ts', eval: w => ['-e', '-p', '--eval', '--print'].includes(w), skip: new Set() },
-  { re: /^ruby$/, scope: 'source.ruby', eval: w => w === '-e', skip: new Set(['-r', '-I']) },
-  { re: /^(bash|sh|zsh)$/, scope: 'source.shell', eval: w => w === '-c' || /^-[A-Za-z]*c$/.test(w), skip: new Set(['-o', '-O']) },
-]
-
-// User runners: $SYNTAX_CMD_RUNNERS or ~/.claude/syntax-cmd/runners.json, a JSON array (checked before the defaults):
-//   { "program": "^lua(jit)?$", "language": "lua", "evalFlags": ["-e"], "skipFlags": ["-l"], "stopFlags": [], "words": [], "after": null }
-// "language" is a TextMate scope ("source.lua") or a short id/alias ("lua", "py", "js"); "after" is a subcommand word like deno's "eval".
-function loadUserRunners() {
+// Runners (which programs carry code, and in what language) live in runners.json, not here. The first run copies the
+// default file shipped with the mod to ~/.claude/syntax-cmd/runners.json (or $SYNTAX_CMD_RUNNERS); edit that copy to add more.
+//   { "program": "^lua(jit)?$", "language": "lua", "evalFlags": ["-e"], "evalPattern": null, "skipFlags": [], "stopFlags": [], "words": [], "after": null }
+// "language" is a TextMate scope ("source.lua") or a short id/alias ("lua", "py", "js"); "evalFlags" are flags whose NEXT word is code
+// (or "evalPattern", a regex for them); "skipFlags" swallow one argument; "stopFlags" end the scan; "after" is a subcommand like deno's "eval".
+function loadRunners() {
   const file = process.env.SYNTAX_CMD_RUNNERS || path.join(process.env.HOME || '', '.claude/syntax-cmd/runners.json')
+  const shipped = path.join(HERE, 'runners.json')
+  let text
+  try { text = fs.readFileSync(file, 'utf8') } catch {
+    try { fs.mkdirSync(path.dirname(file), { recursive: true }); fs.copyFileSync(shipped, file) } catch {}
+    try { text = fs.readFileSync(shipped, 'utf8') } catch { return [] }
+  }
   try {
-    return JSON.parse(fs.readFileSync(file, 'utf8')).map(r => ({
-      re: new RegExp(r.program), get scope() { return /^(source|text)\./.test(r.language) ? r.language : EXT[r.language] || 'source.' + r.language }, user: true,
-      eval: w => (r.evalFlags || []).includes(w), skip: new Set(r.skipFlags || []),
-      stop: new Set(r.stopFlags || []), words: new Set(r.words || []), after: r.after || undefined,
-    }))
+    return JSON.parse(text).map(r => {
+      const flags = new Set(r.evalFlags || []), pat = r.evalPattern && new RegExp(r.evalPattern)
+      return {
+        re: new RegExp(r.program), get scope() { return /^(source|text)\./.test(r.language) ? r.language : EXT[r.language] || 'source.' + r.language },
+        eval: w => flags.has(w) || !!pat?.test(w), skip: new Set(r.skipFlags || []),
+        stop: new Set(r.stopFlags || []), words: new Set(r.words || []), after: r.after || undefined,
+      }
+    })
   } catch { return [] }
 }
-RUNNERS.unshift(...loadUserRunners())
+const RUNNERS = loadRunners()
 
 const EXT = {
   py: 'source.python', js: 'source.js', mjs: 'source.js', cjs: 'source.js', jsx: 'source.js.jsx', ts: 'source.ts', mts: 'source.ts',

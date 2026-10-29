@@ -1,0 +1,97 @@
+[
+  {
+    "program": "^(python|python\\d+(\\.\\d+)*|py|pypy3?)$",
+    "language": "python",
+    "evalFlags": [
+      "-c"
+    ],
+    "evalPattern": "^-[A-Za-z]*c$",
+    "skipFlags": [
+      "-W",
+      "-X",
+      "-Q",
+      "-m"
+    ],
+    "stopFlags": [
+      "-m"
+    ]
+  },
+  {
+    "program": "^(node|nodejs)$",
+    "language": "js",
+    "evalFlags": [
+      "-e",
+      "-p",
+      "-pe",
+      "-ep",
+      "--eval",
+      "--print"
+    ],
+    "skipFlags": [
+      "-r",
+      "--require",
+      "--import",
+      "--loader",
+      "--input-type",
+      "--env-file",
+      "--experimental-loader"
+    ]
+  },
+  {
+    "program": "^bun$",
+    "language": "js",
+    "evalFlags": [
+      "-e",
+      "--eval",
+      "-p",
+      "--print"
+    ],
+    "skipFlags": [
+      "--preload",
+      "-r",
+      "--cwd",
+      "--env-file"
+    ],
+    "words": [
+      "run"
+    ]
+  },
+  {
+    "program": "^deno$",
+    "language": "ts",
+    "after": "eval"
+  },
+  {
+    "program": "^(tsx|ts-node)$",
+    "language": "ts",
+    "evalFlags": [
+      "-e",
+      "-p",
+      "--eval",
+      "--print"
+    ]
+  },
+  {
+    "program": "^ruby$",
+    "language": "ruby",
+    "evalFlags": [
+      "-e"
+    ],
+    "skipFlags": [
+      "-r",
+      "-I"
+    ]
+  },
+  {
+    "program": "^(bash|sh|zsh)$",
+    "language": "shell",
+    "evalFlags": [
+      "-c"
+    ],
+    "evalPattern": "^-[A-Za-z]*c$",
+    "skipFlags": [
+      "-o",
+      "-O"
+    ]
+  }
+]

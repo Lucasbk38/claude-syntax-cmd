@@ -33,18 +33,15 @@ In Claude Code: `/config`, then the `syntax-cmd` rows.
 | `codeStrength` | `1` | same for `show_code` output |
 | `collapsedLines` | `3` | lines of a long command shown before "ctrl+o to expand" |
 
-## More languages
+## Runners (which languages are detected)
 
-The runners (`node -e/-p`, `bun -e`, `python`/`py`/`python3 -c`, `ruby -e`, `bash -c`, `deno eval`, `tsx -e`) are built in. Add your own in `~/.claude/syntax-cmd/runners.json` (or the file named by `$SYNTAX_CMD_RUNNERS`), a JSON array checked before the defaults. Claude can edit this file itself.
+There is no built-in list. The default [`runners.json`](runners.json) (node, bun, python/py/python3, ruby, bash/sh/zsh, deno, tsx/ts-node) is copied to `~/.claude/syntax-cmd/runners.json` on first use (or the file named by `$SYNTAX_CMD_RUNNERS`), and that copy is what gets loaded. Edit it, or let Claude edit it, to add languages:
 
 ```json
-[
-  { "program": "^lua(jit)?$", "language": "lua", "evalFlags": ["-e"] },
-  { "program": "^perl$", "language": "perl", "evalFlags": ["-e", "-E"], "skipFlags": ["-I"] }
-]
+{ "program": "^lua(jit)?$", "language": "lua", "evalFlags": ["-e"] }
 ```
 
-`language` is a TextMate scope (`source.lua`) or a short id (`lua`, `py`, `js`); `skipFlags` swallow one argument, `stopFlags` end the scan (like `-m`), `words` are subcommands to skip, `after` is a subcommand that precedes the code.
+`language` is a TextMate scope (`source.lua`) or a short id (`lua`, `py`, `js`). `evalFlags` are flags whose next word is code (`evalPattern` takes a regex instead), `skipFlags` swallow one argument, `stopFlags` end the scan (like `-m`), `words` are subcommands to skip, `after` is a subcommand that precedes the code (`deno eval`).
 
 ## Notes
 
