@@ -1,6 +1,6 @@
 {
   "name": "syntax-cmd",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Syntax-highlights Claude's Bash commands (and code inside node -e, python -c, heredocs) with your editor's theme and TextMate grammars, and lets Claude show highlighted code on request",
   "userConfig": {
     "editor": {

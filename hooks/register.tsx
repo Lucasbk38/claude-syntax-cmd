@@ -96,6 +96,13 @@ export const register: Register = (on, userOptions) => {
     return next(e)
   }).catch(($, e, next) => next(e))
 
+  // a group of calls draws one collapsed line ("Running ..."), where Bash commands would stay unhighlighted: unfold it
+  // into its own ToolUse rows (drawn below) whenever it holds a Bash call
+  on('ui.render', { component: 'ToolGroup' }, async ($, e, next) => {
+    if (e.props.isExpanded || !e.props.calls.some(call => call.tool === 'Bash')) return next(e)
+    return next({ ...e, props: { ...e.props, isExpanded: true } })
+  }).catch(($, e, next) => next(e))
+
   on('ui.render', { component: 'ToolUse' }, async ($, e, next) => {
     const input = e.props.input as { command?: unknown; code?: unknown; language?: unknown; title?: unknown } | null
     const isShow = e.props.tool === SHOW_CODE
