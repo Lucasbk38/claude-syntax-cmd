@@ -197,6 +197,21 @@ const RUNNERS = [
   { re: /^(bash|sh|zsh)$/, scope: 'source.shell', eval: w => w === '-c' || /^-[A-Za-z]*c$/.test(w), skip: new Set(['-o', '-O']) },
 ]
 
+// User runners: $SYNTAX_CMD_RUNNERS or ~/.claude/syntax-cmd/runners.json, a JSON array (checked before the defaults):
+//   { "program": "^lua(jit)?$", "language": "lua", "evalFlags": ["-e"], "skipFlags": ["-l"], "stopFlags": [], "words": [], "after": null }
+// "language" is a TextMate scope ("source.lua") or a short id/alias ("lua", "py", "js"); "after" is a subcommand word like deno's "eval".
+function loadUserRunners() {
+  const file = process.env.SYNTAX_CMD_RUNNERS || path.join(process.env.HOME || '', '.claude/syntax-cmd/runners.json')
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf8')).map(r => ({
+      re: new RegExp(r.program), get scope() { return /^(source|text)\./.test(r.language) ? r.language : EXT[r.language] || 'source.' + r.language }, user: true,
+      eval: w => (r.evalFlags || []).includes(w), skip: new Set(r.skipFlags || []),
+      stop: new Set(r.stopFlags || []), words: new Set(r.words || []), after: r.after || undefined,
+    }))
+  } catch { return [] }
+}
+RUNNERS.unshift(...loadUserRunners())
+
 const EXT = {
   py: 'source.python', js: 'source.js', mjs: 'source.js', cjs: 'source.js', jsx: 'source.js.jsx', ts: 'source.ts', mts: 'source.ts',
   cts: 'source.ts', tsx: 'source.tsx', json: 'source.json', rb: 'source.ruby', sh: 'source.shell', bash: 'source.shell', zsh: 'source.shell',

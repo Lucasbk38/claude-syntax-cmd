@@ -33,6 +33,19 @@ In Claude Code: `/config`, then the `syntax-cmd` rows.
 | `codeStrength` | `1` | same for `show_code` output |
 | `collapsedLines` | `3` | lines of a long command shown before "ctrl+o to expand" |
 
+## More languages
+
+The runners (`node -e/-p`, `bun -e`, `python`/`py`/`python3 -c`, `ruby -e`, `bash -c`, `deno eval`, `tsx -e`) are built in. Add your own in `~/.claude/syntax-cmd/runners.json` (or the file named by `$SYNTAX_CMD_RUNNERS`), a JSON array checked before the defaults. Claude can edit this file itself.
+
+```json
+[
+  { "program": "^lua(jit)?$", "language": "lua", "evalFlags": ["-e"] },
+  { "program": "^perl$", "language": "perl", "evalFlags": ["-e", "-E"], "skipFlags": ["-I"] }
+]
+```
+
+`language` is a TextMate scope (`source.lua`) or a short id (`lua`, `py`, `js`); `skipFlags` swallow one argument, `stopFlags` end the scan (like `-m`), `words` are subcommands to skip, `after` is a subcommand that precedes the code.
+
 ## Notes
 
 Bundled TextMate grammars and themes come from [tm-grammars](https://github.com/shikijs/textmate-grammars-themes) and [tm-themes](https://github.com/shikijs/textmate-grammars-themes) (MIT); `vscode-textmate` and `vscode-oniguruma` are vendored (MIT). See `bundled/` and `vendor/` for their licenses. The image is rendered from the tokenizer's real output.
